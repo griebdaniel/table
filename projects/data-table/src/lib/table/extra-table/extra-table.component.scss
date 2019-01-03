@@ -1,0 +1,31 @@
+@import '~@angular/material/theming';
+
+.table-container {
+  width: inherit;
+  background-color: inherit;
+  @include mat-elevation(2);
+}
+
+.mat-column-select {
+  width: 36px;
+}
+
+.table { 
+
+}
+
+.mat-table {
+  width: 100%;
+  background-color: inherit;
+}
+
+.relative-wrapper{
+  position: relative;
+}
+
+.edit-active {
+  position: absolute;
+  top: -24px;
+  left: -24px;
+  z-index: 1;
+}

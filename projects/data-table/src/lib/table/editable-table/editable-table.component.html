@@ -1,0 +1,22 @@
+<!-- <div class="table-container"> -->
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+</mat-form-field>
+
+<lib-table-header (insert)="insert()" (delete)="delete()" class="table-header"></lib-table-header>
+
+<table mat-table matSort (matSortChange)="sortChange($event)" [dataSource]="dataSource" class="table">
+  <ng-container *ngFor="let columnName of columnNames; let j = index" matColumnDef={{columnName}}>
+    <th mat-header-cell mat-sort-header *matHeaderCellDef> {{columnName}} </th>
+    <td mat-cell *matCellDef="let element; let i = index" (click)="enableEdit($event, i, columnName, editableText)">
+      <div class="relative-wrapper">
+        <lib-editable-text #editableText [data]="element[columnName]" [type]="getTypeWithMeta(columnName)" [ngClass]="{'edit-active': isCurrentlyEdited(i, columnName)}"
+          (editDisabled)="editDisabled()" (valueChanged)="valueChanged($event, i, columnName)" (click)="enableEdit($event, i, columnName, editableText)">
+        </lib-editable-text>
+      </div>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="columnNames"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnNames;"></tr>
+</table>
+<!-- </div> -->

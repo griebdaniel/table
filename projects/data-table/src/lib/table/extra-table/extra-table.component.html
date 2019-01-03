@@ -1,0 +1,31 @@
+<div class="table-container">
+
+  <lib-table-header (insert)="insert()" (delete)="delete()" (close)="close()" (filter)="applyFilter($event)" class="table-header"></lib-table-header>
+  <mat-divider></mat-divider>
+  <table #table mat-table matSort [dataSource]="dataSource" class="table">
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+    <ng-container *ngFor="let columnName of columnNames; let j = index" matColumnDef={{columnName}}>
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> {{columnName}} </th>
+      <td mat-cell *matCellDef="let element; let i = index" (click)="enableEdit($event, element, columnName, editableText)">
+        <div class="relative-wrapper">
+          <lib-editable-text #editableText [data]="element[columnName]" [type]="getTypeWithMeta(columnName)" [ngClass]="{'edit-active': isCurrentlyEdited(element, columnName)}"
+            (editDisabled)="editDisabled()" (valueChanged)="valueChanged($event, element, columnName)" (click)="enableEdit($event, element, columnName, editableText)">
+          </lib-editable-text>
+        </div>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="getColumnNamesWithSelect()"></tr>
+    <tr mat-row *matRowDef="let row; columns: getColumnNamesWithSelect();"></tr>
+  </table>
+  <mat-paginator [style.background-color]="'inherit'" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>

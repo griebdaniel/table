@@ -1,16 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
+import { FormsModule } from '@angular/forms';
+import { TableTesterComponent } from './table-tester/table-tester.component';
+import { DataTableModule } from 'data-table';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent, TableTesterComponent, 
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule
+    BrowserModule, FormsModule, DataTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

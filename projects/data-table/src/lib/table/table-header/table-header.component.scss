@@ -1,0 +1,61 @@
+@import '~@angular/material/theming';
+
+:host {
+  height: inherit;
+  width: inherit;
+}
+
+.table-header {
+  height: 60px;
+  width: inherit;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.actions {
+  align-self: center;
+}
+
+.action-item {
+  align-self: center;
+  flex-shrink: 0;
+}
+
+.filter {
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 100%;
+  min-width: 0px;
+  flex-shrink: 1;
+  align-self: center;
+
+  font-size: initial;
+  color: initial;
+}
+
+.take-all-space {
+  flex-grow: 1;
+}
+
+.more-action {
+  align-self: center;
+}
+
+.mat-menu-item {
+  color: mat-color(mat-palette($mat-deep-purple));
+}
+
+.close {
+  color: #000000;
+  opacity: 0.25;
+  top: -8px;
+  left: 8px;
+}
+
+.close-icon {
+  font-size: 18px; 
+}
+
+
+

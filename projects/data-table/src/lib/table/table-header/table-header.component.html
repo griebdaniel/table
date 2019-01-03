@@ -1,0 +1,24 @@
+<div class="table-header">
+
+  <button class="action-item" mat-button color="primary" (click)="insert.emit()"> <span class="mat-h3 mat-body-strong"> ADD </span> </button>
+  <button class="action-item" mat-button color="primary" (click)="delete.emit()"> <span class="mat-h3 mat-body-strong"> REMOVE </span> </button>
+  <mat-form-field class="filter" *ngIf="isFilterEnabled"  [floatLabel]="'never'">
+    <input libFocus placeholder="filter" matInput (keyup)="filter.emit($event.target.value)" (keyup.enter)="isFilterEnabled = false">
+  </mat-form-field>
+
+  <div class="take-all-space"></div>
+
+  <button mat-icon-button class="more-action" [matMenuTriggerFor]="menu">
+    <mat-icon color="primary"> more_vert </mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="isFilterEnabled = true">
+      <span class="mat-h3 mat-body-strong"> FILTER </span>
+    </button>
+  </mat-menu>
+
+  <button class="close" mat-icon-button (click)="close.emit()">
+    <mat-icon class="close-icon"> close </mat-icon>
+  </button>
+
+</div>

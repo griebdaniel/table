@@ -1,0 +1,59 @@
+<ng-container [ngSwitch]="type.name">
+  <ng-container *ngSwitchCase="'Text'">
+    <ng-container *ngIf="isEditEnabled">
+      <div [class.mat-elevation-z2]="true" class="input-container">
+        <mat-form-field class="edit-input" (keyup.enter)="disableEditInternal()">
+          <input libFocus matInput type="text" [(ngModel)]="data">
+        </mat-form-field>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!isEditEnabled">
+      <span> {{data}} </span>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'Number'">
+    <ng-container *ngIf="isEditEnabled">
+      <div [class.mat-elevation-z2]="true" class="input-container">
+        <mat-form-field class="edit-input">
+          <input libFocus matInput (keyup.enter)="disableEditInternal()"  type="number" [(ngModel)]="data">
+        </mat-form-field>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!isEditEnabled">
+      <span> {{data}} </span>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'AutocompleteWithMapper'">
+    <ng-container *ngIf="isEditEnabled">
+      <div [class.mat-elevation-z2]="true" class="input-container">
+        <mat-form-field class="edit-input">
+          <input libFocus #autocompleteMapper (keyup)="filterOptions($event.target.value)" (keyup.enter)="disableEditInternal()"
+            matInput [matAutocomplete]="auto" [ngModel]="data ? type.meta.map(data) : undefined">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!isEditEnabled">
+      <span class="text"> {{ data ? type.meta.map(data) : undefined }} </span>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'Table'">
+    <ng-container *ngIf="isEditEnabled">
+      <div class="table-container">
+        <lib-extra-table #table [style.width]="'300px'" [style.background-color]="'#f9fbff'" [data]="data" [tableMeta]="type.meta"
+          (changed)="changed($event)" (closed)="disableEditInternal()"></lib-extra-table>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!isEditEnabled">
+      <span class="text"> {{data?.length}} </span>
+    </ng-container>
+  </ng-container>
+
+</ng-container>
